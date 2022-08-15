@@ -2,6 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { serialize } from 'cookie';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== 'DELETE') {
+    return res.status(405).json({ error: 'method not allowed' });
+  }
+
   res.setHeader('Set-Cookie', serialize('__sess', '', { maxAge: 0 }));
 
   const qs = req.url?.split('?')[1];
