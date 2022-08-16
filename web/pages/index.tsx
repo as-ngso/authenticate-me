@@ -25,9 +25,9 @@ const Home = ({ user, accessToken }: any) => {
     <main>
       <button onClick={logout}>Logout</button>
       <button onClick={logoutFromAllDevices}>Logout from all devices</button>
-      <div>{currentUser.firstName}</div>
-      <div>{currentUser.lastName}</div>
-      <div>{currentUser.email}</div>
+      <div>First name: {currentUser.firstName}</div>
+      <div>Last name: {currentUser.lastName}</div>
+      <div>Email: {currentUser.email}</div>
 
       <div>
         <h2>Update user info</h2>
@@ -49,7 +49,7 @@ const Home = ({ user, accessToken }: any) => {
               .min(8, 'Password must be at least 8 characters'),
             currentPassword: yup.string().required('Required').min(8),
           })}
-          onSubmit={async (values) => {
+          onSubmit={async (values, { resetForm }) => {
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/update`,
               {
@@ -77,6 +77,8 @@ const Home = ({ user, accessToken }: any) => {
             if (response.status !== 200) {
               setFormError(data.error);
             }
+
+            resetForm();
           }}
         >
           {(formik) => (
@@ -100,7 +102,7 @@ const Home = ({ user, accessToken }: any) => {
               <FormInput label="Email" name="email" id="email" type="email" />
 
               <FormInput
-                label="Password"
+                label="New Password"
                 name="password"
                 id="password"
                 type="password"
@@ -114,7 +116,12 @@ const Home = ({ user, accessToken }: any) => {
                 required
               />
 
-              <button type="submit">Update info</button>
+              <button
+                disabled={formik.isSubmitting && !formik.isValidating}
+                type="submit"
+              >
+                Update info
+              </button>
             </form>
           )}
         </Formik>

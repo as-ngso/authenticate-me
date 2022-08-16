@@ -86,7 +86,12 @@ const Register = () => {
               required
             />
 
-            <button type="submit">Register</button>
+            <button
+              disabled={formik.isSubmitting && !formik.isValidating}
+              type="submit"
+            >
+              Register
+            </button>
           </form>
         )}
       </Formik>

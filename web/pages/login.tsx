@@ -66,7 +66,12 @@ const Login = () => {
               required
             />
 
-            <button type="submit">Login</button>
+            <button
+              disabled={formik.isSubmitting && !formik.isValidating}
+              type="submit"
+            >
+              Login
+            </button>
           </form>
         )}
       </Formik>
