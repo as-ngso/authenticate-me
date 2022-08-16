@@ -42,7 +42,7 @@ describe('UserResolver', () => {
         .get('/api/user/current')
         .set('authorization', factoryTokens[0].value);
 
-      expect(response.body.data).toMatchObject({
+      expect(response.body).toMatchObject({
         currentUser: {
           id: factoryUser.id,
           email: factoryUser.email,

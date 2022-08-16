@@ -21,10 +21,8 @@ export class UserController {
   @UseGuards(AuthGuard)
   async currentUser(@Req() req: Request) {
     return {
-      data: {
-        // @ts-ignore
-        currentUser: this.serializeUser(req.user),
-      },
+      // @ts-ignore
+      currentUser: this.serializeUser(req.user),
     };
   }
 

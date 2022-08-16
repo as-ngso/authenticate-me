@@ -5,17 +5,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'DELETE') {
     return res.status(405).json({ error: 'method not allowed' });
   }
+  const authorization = req.cookies.__sess;
 
-  res.setHeader('Set-Cookie', serialize('__sess', '', { maxAge: 0 }));
+  if (!authorization) {
+    return res.status(401).json({ error: 'unauthorized' });
+  }
 
   const qs = req.url?.split('?')[1];
 
   await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/logout?${qs}`, {
     method: 'DELETE',
     body: JSON.stringify(req.body),
+    headers: {
+      authorization,
+    },
   });
 
-  return res.status(204);
+  res.setHeader(
+    'Set-Cookie',
+    serialize('__sess', '', { maxAge: -1, path: '/' })
+  );
+
+  return res.json({ success: true });
 };
 
 export default handler;

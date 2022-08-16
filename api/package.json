@@ -16,17 +16,13 @@
     "test": "jest -i"
   },
   "dependencies": {
-    "@nestjs/apollo": "^10.0.19",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/graphql": "^10.0.21",
     "@nestjs/platform-express": "^9.0.0",
-    "apollo-server-express": "^3.10.0",
     "argon2": "^0.28.7",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
-    "graphql": "^16.5.0",
     "knex": "^2.2.0",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
